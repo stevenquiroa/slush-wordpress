@@ -1,8 +1,8 @@
 /**
- * {%= title %}
- * {%= homepage %}
+ * {%= appName %}
+ * {%= appUri %}
  *
- * Copyright (c) {%= grunt.template.today('yyyy') %} {%= author_name %}
+ * Copyright (c) {%= todayDate %} {%= authorName %}
  * Licensed under the GPLv2+ license.
  */
  

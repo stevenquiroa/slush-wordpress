@@ -1,6 +1,6 @@
 # Slush Wordpress [![Build Status](https://secure.travis-ci.org/stevenquiroa/slush-wordpress.png?branch=master)](https://travis-ci.org/stevenquiroa/slush-wordpress) [![NPM version](https://badge-me.herokuapp.com/api/npm/slush-wordpress.png)](http://badges.enytc.com/for/npm/slush-wordpress)
 
-> The best scaffold for wordpress.
+> The best wordpress scaffold ever!
 
 
 ## Getting Started
