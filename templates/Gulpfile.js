@@ -45,7 +45,7 @@ gulp.task('vendors-css', function() {
 })
 
 gulp.task('default', function () {
-    gulp.watch('./assets/css/src/*.scss', ['sass','minify-css'])
+    gulp.watch('./assets/css/src/*.scss', ['sass'])
     gulp.watch('./assets/js/src/*.js', ['scripts'])
 })
 
