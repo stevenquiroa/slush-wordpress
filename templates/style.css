@@ -1,10 +1,10 @@
 /**
- * Theme Name:  {%= appName %}
- * Theme URI:   {%= appUri %}
- * Description: {%= appDescription %}
- * Author:      {%= authorName %}
- * Author URI:  {%= authorUri %}
- * Version:     {%= appVersion %}
+ * Theme Name:  <%= appName %>
+ * Theme URI:   <%= appUri %>
+ * Description: <%= appDescription %>
+ * Author:      <%= authorName %>
+ * Author URI:  <%= authorUri %>
+ * Version:     <%= appVersion %>
  * Tags:
  *
  * License:     GPLv2+

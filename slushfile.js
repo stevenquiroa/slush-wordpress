@@ -103,6 +103,8 @@ gulp.task('default', function (done) {
             today = today.getFullYear() + '-' + mm + '-' + dd
             answers.todayDate = today
             answers.appNameSlug = _.slugify(answers.appName)
+            answers.appNameSlug = _.underscored(answers.appNameSlug)
+            answers.appNameSlugUPPER = answers.appNameSlug.toUpperCase()
             gulp.src(__dirname + '/templates/**')
                 .pipe(template(answers))
                 .pipe(rename(function (file) {

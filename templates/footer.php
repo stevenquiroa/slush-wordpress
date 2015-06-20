@@ -2,8 +2,8 @@
 /**
  * The template for displaying the footer.
  *
- * @package {%= appName %}
- * @since {%= appVersion %}
+ * @package <%= appName %>
+ * @since <%= appVersion %>
  */
 
 ?>

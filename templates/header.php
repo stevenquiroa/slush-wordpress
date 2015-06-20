@@ -2,8 +2,8 @@
 /**
  * The template for displaying the header.
  *
- * @package {%= appName %}
- * @since {%= appVersion %}
+ * @package <%= appName %>
+ * @since <%= appVersion %>
  */
  ?><!DOCTYPE html>
  <head>
