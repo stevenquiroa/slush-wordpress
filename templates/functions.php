@@ -49,9 +49,9 @@ define( '<%= appNameSlugUPPER %>_VERSION', '<%= appVersion %>' );
 
 	wp_enqueue_style( 'vendor', get_template_directory_uri() . "/assets/css/vendor.css", array(), <%= appNameSlugUPPER %>_VERSION );
 
-	wp_enqueue_script( '<%= appNameSlug %>', get_template_directory_uri() . "/assets/js/theme{$postfix}.js", array('jquery', 'vendor'), <%= appNameSlugUPPER %>_VERSION, true );
+	wp_enqueue_script( '<%= appNameSlug %>', get_template_directory_uri() . "/assets/js/<%= appNameSlug %>{$postfix}.js", array('jquery', 'vendor'), <%= appNameSlugUPPER %>_VERSION, true );
 		
-	wp_enqueue_style( '<%= appNameSlug %>', get_template_directory_uri() . "/assets/css/theme{$postfix}.css", array(), <%= appNameSlugUPPER %>_VERSION );
+	wp_enqueue_style( '<%= appNameSlug %>', get_template_directory_uri() . "/assets/css/<%= appNameSlug %>{$postfix}.css", array(), <%= appNameSlugUPPER %>_VERSION );
  }
  add_action( 'wp_enqueue_scripts', '<%= appNameSlug %>_scripts_styles' );
  
