@@ -6,6 +6,8 @@ var sourcemaps = require('gulp-sourcemaps')
 var uglify = require('gulp-uglify')
 var jshint = require('gulp-jshint')
 var rsync = require('gulp-rsync')
+var clone = require('gulp-clone')
+var rename = require('gulp-rename')
 var env = require('./env.json') 
 
 //compila los vendors js en un solo archivo
@@ -34,20 +36,32 @@ gulp.task('vendors-css', function() {
 
 //compila los js en un solo archivo
 gulp.task('scripts', function() {
-    return gulp.src('./assets/js/src/*.js')
-    .pipe(jshint())
-    .pipe(uglify())
-    .pipe(gulp.dest('./assets/js'))
+    var scripts = gulp.src('./assets/js/src/*.js').pipe(jshint())
+    var uglified = scripts.pipe(clone())
+
+    scripts.pipe(gulp.dest('./assets/js'))
+    return uglified
+            .pipe(uglify())
+            .pipe(rename(function (file) {
+                file.basename = file.basename + '.min'
+            }))
+            .pipe(gulp.dest('./assets/js'))
 })
 
 //compila los sass en un solo archivo
 gulp.task('sass', function () {
-    return gulp.src('./assets/css/src/*.scss')
-    .pipe(sass.sync().on('error', sass.logError))
-    .pipe(sourcemaps.init())
-    .pipe(minify())
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest('./assets/css'))
+    var styles =  gulp.src('./assets/css/src/*.scss').pipe(sass.sync().on('error', sass.logError))
+    var minified = styles.pipe(clone())
+
+    styles.pipe(gulp.dest('./assets/css'))
+    return minified
+            .pipe(sourcemaps.init())
+            .pipe(minify())
+            .pipe(sourcemaps.write())
+            .pipe(rename(function (file) {
+                file.basename = file.basename + '.min'
+            }))
+            .pipe(gulp.dest('./assets/css'))
 })
 
 //compila los vendors y los sincroniza con el server
