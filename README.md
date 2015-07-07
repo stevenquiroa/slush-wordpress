@@ -8,7 +8,7 @@
 Install `slush-wordpress` globally:
 
 ```bash
-$ npm install -g slush-wordpress
+$ npm install -g slush slush-wordpress-scaffold
 ```
 
 ### Usage

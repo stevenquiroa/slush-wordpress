@@ -1,1 +1,1 @@
-For function deploy need ssh keys configured into server
+For deploy task you need ssh keys configured into server
