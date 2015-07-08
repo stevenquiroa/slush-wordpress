@@ -1,7 +1,7 @@
 {
     "name": "slush-wordpress-scaffold",
     "description": "The best wordpress scaffold ever!",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "homepage": "https://github.com/stevenquiroa/slush-wordpress",
     "author": {
         "name": "Steven Quiroa",
