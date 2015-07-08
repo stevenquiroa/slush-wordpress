@@ -5,10 +5,10 @@
 
 ## Getting Started
 
-Install `slush-wordpress-scaffold` globally:
+Install `slush-wp` globally:
 
 ```bash
-$ npm install -g slush slush-wordpress-scaffold
+$ npm install -g slush slush-wp
 ```
 
 ### Usage
@@ -16,13 +16,13 @@ $ npm install -g slush slush-wordpress-scaffold
 Create a new folder for your project:
 
 ```bash
-$ mkdir my-slush-wordpress
+$ mkdir my-theme-name
 ```
 
 Run the generator from within the new folder:
 
 ```bash
-$ cd my-slush-wordpress && slush wordpress-scaffold
+$ cd my-theme-name && slush wp
 ```
 
 ## Getting To Know Slush
