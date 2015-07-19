@@ -3,3 +3,4 @@ bower_components
 temp
 *.log
 .idea
+.DS_Store

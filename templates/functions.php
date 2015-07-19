@@ -39,7 +39,7 @@ define( '<%= appNameSlugUPPER %>_VERSION', '<%= appVersion %>' );
   *
   * @since <%= appVersion %>
   */
- function <%= appNameSlug %>_scripts_styles() {
+function <%= appNameSlug %>_scripts_styles() {
 	$postfix = ( defined( 'SCRIPT_DEBUG' ) && true === SCRIPT_DEBUG ) ? '' : '.min';
 
 	wp_enqueue_script( 'jquery' );
@@ -49,15 +49,19 @@ define( '<%= appNameSlugUPPER %>_VERSION', '<%= appVersion %>' );
 
 	wp_enqueue_style( 'vendor', get_template_directory_uri() . "/assets/css/vendor.css", array(), <%= appNameSlugUPPER %>_VERSION );
 
-	wp_enqueue_script( '<%= appNameSlug %>', get_template_directory_uri() . "/assets/js/<%= appNameSlug %>{$postfix}.js", array('jquery', 'vendor'), <%= appNameSlugUPPER %>_VERSION, true );
-		
+	$to = array(
+	);
+	wp_register_script( '<%= appNameSlug %>', get_template_directory_uri() . "/assets/js/<%= appNameSlug %>{$postfix}.js", array('jquery', 'vendor'), <%= appNameSlugUPPER %>_VERSION, true );
+	wp_localize_script( '<%= appNameSlug %>', 'to', $to );
+	wp_enqueue_script( '<%= appNameSlug %>' );
+
 	wp_enqueue_style( '<%= appNameSlug %>', get_template_directory_uri() . "/assets/css/<%= appNameSlug %>{$postfix}.css", array(), <%= appNameSlugUPPER %>_VERSION );
- }
- add_action( 'wp_enqueue_scripts', '<%= appNameSlug %>_scripts_styles' );
+}
+add_action( 'wp_enqueue_scripts', '<%= appNameSlug %>_scripts_styles' );
  
- /**
+/**
   * Add humans.txt to the <head> element.
-  */
+*/
  function <%= appNameSlug %>_header_meta() {
 	$humans = '<link type="text/plain" rel="author" href="' . get_template_directory_uri() . '/humans.txt" />';
 	
@@ -69,3 +73,10 @@ define( '<%= appNameSlugUPPER %>_VERSION', '<%= appVersion %>' );
  * Adding thumbnails support
  */
  add_theme_support( 'post-thumbnails' );
+
+/**
+ * Adding ACF Support
+ */
+if( function_exists('acf_add_options_page') ) {	
+	acf_add_options_page();
+}
