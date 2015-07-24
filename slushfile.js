@@ -81,7 +81,7 @@ gulp.task('default', function (done) {
     }, {
         name: 'authorUri',
         message: 'What is the author url?',
-        default: 'http://github.com/stevenquiroa'
+        default: 'http://github.com/' + defaults.userName
     }, {
         type: 'confirm',
         name: 'moveon',
@@ -108,7 +108,7 @@ gulp.task('default', function (done) {
             gulp.src(__dirname + '/templates/**')
                 .pipe(template(answers))
                 .pipe(rename(function (file) {
-                    if (file.basename[0] === '_') {
+                    if (file.basename[0] === '-') {
                         file.basename = '.' + file.basename.slice(1)
                     } else if(file.basename[0] === '+') {
                         file.basename = answers.appNameSlug
