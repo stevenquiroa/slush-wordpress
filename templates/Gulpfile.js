@@ -48,9 +48,9 @@ gulp.task('scripts', function() {
             .pipe(gulp.dest('./assets/js'))
 })
 
-//compila los sass en un solo archivo
+//compile all sass into a single file
 gulp.task('sass', function () {
-    var styles =  gulp.src('./assets/css/src/*.scss').pipe(sass.sync().on('error', sass.logError))
+    var styles =  gulp.src('./assets/css/src/<%= appNameSlug %>.scss').pipe(sass.sync().on('error', sass.logError))
     var minified = styles.pipe(clone())
 
     styles.pipe(gulp.dest('./assets/css'))
@@ -64,7 +64,7 @@ gulp.task('sass', function () {
             .pipe(gulp.dest('./assets/css'))
 })
 
-//compila los vendors y los sincroniza con el server
+//compile vendors and sync with the server
 gulp.task('vendors-sync', ['vendors-css', 'vendors-js'], function(){
     gulp.src(['./assets/css/vendor.css', './assets/js/vendor.js'])
     .pipe(rsync({
@@ -75,7 +75,7 @@ gulp.task('vendors-sync', ['vendors-css', 'vendors-js'], function(){
     }))
 })
 
-//Sincroniza todol los sass al servidor
+//sync all sass files to the server
 gulp.task('sass-sync', ['sass'], function(){
     gulp.src('./assets/css/*.css')
     .pipe(rsync({
@@ -87,7 +87,7 @@ gulp.task('sass-sync', ['sass'], function(){
     }))
 })
 
-//Sincroniza todol los js al servidor
+//sync all the scripts to the server
 gulp.task('scripts-sync', ['scripts'], function(){
     gulp.src('./assets/js/*.js')
     .pipe(rsync({
@@ -99,7 +99,7 @@ gulp.task('scripts-sync', ['scripts'], function(){
     }))
 })
 
-//Funcion para subir php al server
+//function to upload files to the server
 function phpSync(event){
     var src = event.path
     if(!src) src = './**/*.php';
@@ -114,10 +114,10 @@ function phpSync(event){
     }))    
 }
 
-//sincroniza los php de un proyecto
+//sync all php of the project
 gulp.task('php-sync', phpSync)
 
-//compila los vendors en un solo archivo (css y js)
+//compile vendors'js and sass 
 gulp.task('vendors', ['vendors-css', 'vendors-js'])
 
 //Observa y hace cambios en el archivo llamado
