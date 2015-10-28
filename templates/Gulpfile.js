@@ -8,7 +8,25 @@ var jshint = require('gulp-jshint')
 var rsync = require('gulp-rsync')
 var clone = require('gulp-clone')
 var rename = require('gulp-rename')
+var browserSync = require('browser-sync').create()
+//var reload      = browserSync.reload
 var env = require('./env.json') 
+
+// Static Server + watching scss/html files
+gulp.task('serve', ['sass'], function() {
+
+    browserSync.init({
+        //server: "./",
+        proxy: 'localhost/slush/wordpress'
+        //proxy : your localhost wordpress folder (not theme folder)
+    })
+
+    gulp.watch('./assets/css/src/*.scss', ['sass'])
+    gulp.watch('./**/*.php').on("change", browserSync.reload)
+})
+
+gulp.task('default', ['serve']);
+
 
 //compila los vendors js en un solo archivo
 gulp.task('vendors-js', function() {
@@ -50,7 +68,7 @@ gulp.task('scripts', function() {
 
 //compile all sass into a single file
 gulp.task('sass', function () {
-    var styles =  gulp.src('./assets/css/src/<%= appNameSlug %>.scss').pipe(sass.sync().on('error', sass.logError))
+    var styles =  gulp.src('./assets/css/src/project.scss').pipe(sass.sync().on('error', sass.logError))
     var minified = styles.pipe(clone())
 
     styles.pipe(gulp.dest('./assets/css'))
@@ -62,6 +80,7 @@ gulp.task('sass', function () {
                 file.basename = file.basename + '.min'
             }))
             .pipe(gulp.dest('./assets/css'))
+            .pipe(browserSync.stream())
 })
 
 //compile vendors and sync with the server
