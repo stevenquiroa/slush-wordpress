@@ -82,7 +82,11 @@ gulp.task('default', function (done) {
         name: 'authorUri',
         message: 'What is the author url?',
         default: 'http://github.com/' + defaults.userName
-    }, {
+    },{
+        name: 'appDist',
+        message: 'What is the folder name for dist version?',
+        default: defaults.appName + '_dist'
+    },{
         type: 'confirm',
         name: 'moveon',
         message: 'Continue?'
@@ -104,6 +108,7 @@ gulp.task('default', function (done) {
             answers.todayDate = today
             answers.appNameSlug = _.slugify(answers.appName)
             answers.appNameSlug = _.underscored(answers.appNameSlug)
+            answers.appDist = _.underscored(_.slugify(answers.appDist))
             answers.appNameSlugUPPER = answers.appNameSlug.toUpperCase()
             gulp.src(__dirname + '/templates/**')
                 .pipe(template(answers))

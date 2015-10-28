@@ -9,6 +9,7 @@ var rsync = require('gulp-rsync')
 var clone = require('gulp-clone')
 var rename = require('gulp-rename')
 var browserSync = require('browser-sync').create()
+var rm = require( 'gulp-rm' )
 //var reload      = browserSync.reload
 var env = require('./env.json') 
 
@@ -16,12 +17,12 @@ var env = require('./env.json')
 gulp.task('serve', ['sass'], function() {
 
     browserSync.init({
-        //server: "./",
         proxy: 'localhost/slush/wordpress'
         //proxy : your localhost wordpress folder (not theme folder)
     })
 
     gulp.watch('./assets/css/src/*.scss', ['sass'])
+    gulp.watch('./assets/js/src/*.js', ['scripts']).on("change", browserSync.reload)
     gulp.watch('./**/*.php').on("change", browserSync.reload)
 })
 
@@ -68,7 +69,7 @@ gulp.task('scripts', function() {
 
 //compile all sass into a single file
 gulp.task('sass', function () {
-    var styles =  gulp.src('./assets/css/src/project.scss').pipe(sass.sync().on('error', sass.logError))
+    var styles =  gulp.src('./assets/css/src/<%= appNameSlug %>.scss').pipe(sass.sync().on('error', sass.logError))
     var minified = styles.pipe(clone())
 
     styles.pipe(gulp.dest('./assets/css'))
@@ -139,12 +140,37 @@ gulp.task('php-sync', phpSync)
 //compile vendors'js and sass 
 gulp.task('vendors', ['vendors-css', 'vendors-js'])
 
+//clean files of project dist
+gulp.task( 'clean', function() {
+  return gulp.src( '../<%= appDist %>/**/*', { read: false })
+    .pipe( rm() )
+})
 //Observa y hace cambios en el archivo llamado
 gulp.task('default', function () {
     gulp.watch('./assets/css/src/*.scss', ['sass'])
     gulp.watch('./assets/js/src/*.js', ['scripts'])
 })
 
+
+gulp.task('build', ['clean'], function(){
+    var scripts = gulp.src(['./assets/js/*.min.js', './assets/js/vendor.js'])
+    scripts.pipe(gulp.dest('../<%= appDist %>/assets/js'))
+    
+    var phps =  gulp.src(['./*.php', 'style.css'])
+    phps.pipe(gulp.dest('../<%= appDist %>'))    
+    
+    var includes = gulp.src('./includes/*.php')
+    includes.pipe(gulp.dest('../<%= appDist %>/includes'))
+    
+    var images = gulp.src(['./images/*.*', '!./images/*.md'])
+    images.pipe(gulp.dest('../<%= appDist %>/images'))
+    
+    var languages = gulp.src(['./languages/*.*', '!./languages/*.md'])
+    languages.pipe(gulp.dest('../<%= appDist %>/languages'))
+    
+    var styles =  gulp.src(['./assets/css/*.min.css', './assets/css/vendor.css'])
+    styles.pipe(gulp.dest('../<%= appDist %>/assets/css'))
+})
 //Observa, hace cambios y los sube al servidor
 gulp.task('deploy', function () {
     gulp.watch('./assets/css/src/*.scss', ['sass-sync'])
